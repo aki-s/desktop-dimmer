@@ -211,7 +211,8 @@ class OverlayWindow extends BrowserWindow {
         if (this.overlayConfiguration.visibility) {
             this.setBounds({
                 x: bounds.x,
-                y: bounds.y,
+// [dirty-hack] Shift bounds.y for Gnome-Shell's top-bar: Because icons under this overlay-window cannot be clicked.
+                y: bounds.y + platformTools.isLinux ? 27 : 0,
                 width: isDebug ? Math.floor(bounds.width / 4) : (bounds.width + 1),
                 height: isDebug ? Math.floor(bounds.height / 4) : (bounds.height + 1)
             }, false);
